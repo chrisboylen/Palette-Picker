@@ -1,0 +1,127 @@
+* {
+  box-sizing: border-box;
+}
+
+body, h1, h2 {
+  margin: 0;
+}
+
+header,
+.palette,
+.save-projects-cont,
+.save-palette-user-cont, 
+.view-projects-cont {
+  padding: 1rem;
+}
+
+body {
+  background-image: url("../images/linen-dark.png");
+}
+
+header {
+  background-color: #e7e7e7;
+}
+
+.saved, .unsaved {
+  height: 2rem;
+}
+
+.palette-cont {
+  background-color: #91919161;
+}
+
+.palette-color-cont {
+  display: flex;
+  justify-content: space-around;
+  padding: .5rem .5rem 0 .5rem;
+}
+
+.palette {
+  align-items: center;
+  min-width: 7rem;
+  min-height: 20rem;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: .5rem;
+  box-shadow: 0px 8px 19px 4px rgba(0, 0, 0, 0.75);
+}
+
+.one {
+  background-color: #8EA4D2;
+}
+
+.two {
+  background-color: #6279B8;
+}
+
+.three {
+  background-color: #49516F;
+}
+
+.four{
+  background-color: #2B3842;
+}
+
+.five {
+  background-color: #14242B;
+}
+
+button, input {
+  background-color: #E7E7E7;
+  border: 0;
+  border-radius: 8px;
+  padding: .5rem;
+  font-size: 1rem;
+}
+
+.save-palette-user-cont {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.save-palette-cont, form {
+  display: inline-flex;
+}
+
+.save-projects-cont {
+  background-color: #919191;
+  display: flex;
+  justify-content: center;
+}
+
+.view-projects-cont {
+  background-color: #91919161;
+}
+
+h2 {
+  text-align: center;
+}
+/* .float-container {
+  border: solid 1px #ccc;
+  padding: 0 8px;
+  position: relative;
+}
+
+.float-container input {
+  border: none;
+  font-size: 1rem;
+  outline: 0;
+  padding: 1rem 0 1rem;
+}
+
+.is-focused label {
+  transform: translateY(-20px) scale(.5)
+}
+
+label {
+  font-size: 1rem;
+  position: absolute;
+  transform-origin: top left;
+  transform: translate(0, 1rem) scale(1);
+  transition: all .1s ease-in-out;
+} */
+
+
