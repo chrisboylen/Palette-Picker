@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="./css/styles.css">
+  <title>Palette Picker</title>
+</head>
+<body>
+  <header>
+    <h1>Palette Picker</h1>
+  </header>
+  <article class="palette-cont">
+    <div class="palette one">
+      <h3></h3>
+    </div>
+    <div class="palette two">
+      <h3></h3>
+    </div>
+    <div class="palette three">
+      <h3></h3>
+    </div>
+    <div class="palette four">
+      <h3></h3>
+    </div>
+    <div class="palette five">
+      <h3></h3>
+    </div>
+    <button class="generate-btn">Generate Palette</button>
+    <form class="save-palette-form">
+      <select name="project-dir" id="project-dir">
+        <option selected>Project 1</option>
+      </select>
+      <div id="floatContainer" class="float-container">
+        <label for="save-palette-input">Palette Name</label>
+        <input type="text" id="save-palette-input">
+      </div>
+    </form>
+    <button class="save-palette-btn">Save Palette</button>
+  </article>
+  <article class="save-projects-cont">
+    <form class="save-project-from">
+      <div id="floatContainer" class="float-container">
+        <label for="save-project-input">Create a new Project</label>
+        <input type="text" id="save-project-input">
+      </div>
+    </form>
+  </article>
+  <article class="view-projects-cont">
+    <h2>Projects</h2>
+    <section></section>
+  </article>
+  <script type="text/javascript" src="./js/scripts.js"></script>
+</body>
+</html>
