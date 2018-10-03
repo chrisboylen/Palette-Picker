@@ -19,5 +19,17 @@ function toggleLockColor() {
   $(this).attr('src', $(this).hasClass('saved') ? locked : unlocked);
 }
 
+const getPalettes = async () => {
+  const url = '/api/v1/palettes';
+
+  try {
+    const response = await fetch(url);
+    const palettes = await response.json();
+    return palettes;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 $('.generate-btn').on('click', generateRandomPalette);
 $('.unsaved').on('click', toggleLockColor);
