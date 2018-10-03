@@ -93,6 +93,17 @@ app.get('/api/v1/projects/:id', (request, response) => {
     });
 });
 
+app.delete('/api/v1/palettes/:id', (request, response) => {
+  database('palettes').where('id', request.params.id).del()
+    .then(foundPalette => {
+      if (!foundPalette) {
+        return response.status(422).json({ error: 'This palette does not exist.' });
+      } else {
+        return response.status(204);
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error })
     });
 });
 
