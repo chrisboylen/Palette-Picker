@@ -48,6 +48,35 @@ app.post('/api/v1/projects', (request, response) => {
     }
   }
 
+  database('projects').insert(project, 'id')
+    .then(project => {
+      response.status(201).json({ id: project[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
+});
+
+app.post('/api/v1/palettes', (request, response) => {
+  const palette = request.body;
+
+  for (let requiredParameter of ['name', 'color_1', 'color_2', 'color_3', 'color_4', 'color_5', 'project_id']) {
+    if (!palette[requiredParameter]) {
+      return response 
+        .status(422)
+        .send({ error: `Expected fromat: { name: <String>, color_1: <String>, color_2: <String>, color_3: <String>, color_4: <String>, color_5: <String>, project_id: <Number> }. You're missing a '${requiredParameter}' property.` });
+    }
+  }
+
+  database('palettes').insert(palette, 'id')
+    .then(palette => {
+      response.status(201).json({ id: palette[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
+});
+
     });
 });
 
