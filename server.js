@@ -77,6 +77,22 @@ app.post('/api/v1/palettes', (request, response) => {
     });
 });
 
+app.get('/api/v1/projects/:id', (request, response) => {
+  database('projects').where('id', request.params.id).select()
+    .then(projects => {
+      if (projects.length) {
+        response.status(200).json(projects);
+      } else {
+        response.status(404).json({
+          error: `Could not find project with id ${request.params.id}`
+        });
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    });
+});
+
     });
 });
 
