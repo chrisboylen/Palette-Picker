@@ -31,5 +31,17 @@ const getPalettes = async () => {
   }
 };
 
+const getProjects = async () => {
+  const url = 'api/v1/projects';
+
+  try {
+    const response = await fetch(url);
+    const projects = await response.json();
+    return projects;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 $('.generate-btn').on('click', generateRandomPalette);
 $('.unsaved').on('click', toggleLockColor);
