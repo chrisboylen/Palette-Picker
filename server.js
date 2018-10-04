@@ -44,7 +44,7 @@ app.post('/api/v1/projects', (request, response) => {
     if (!project[requiredParameter]) {
       return response
         .status(422)
-        .send({ error: `Expected fromat: { name: <String> }. You're missing a '${requiredParameter}' property.` });
+        .send({ error: `Expected format: { name: <String> }. You're missing a '${requiredParameter}' property.` });
     }
   }
 
@@ -99,7 +99,7 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
       if (!foundPalette) {
         return response.status(422).json({ error: 'This palette does not exist.' });
       } else {
-        return response.status(204);
+        return response.sendStatus(204)
       }
     })
     .catch(error => {
