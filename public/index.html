@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="./css/styles.css">
+  <title>Palette Picker</title>
+</head>
+<body>
+  <header>
+    <h1>Palette Picker</h1>
+  </header>
+  <article class="palette-cont">
+    <section class="palette-color-cont">
+      <div class="palette color_1">
+        <h3>#8EA4D2</h3>
+        <img class="unsaved" src="./images/unlocked.svg" alt="Locked lock">
+      </div>
+      <div class="palette color_2">
+        <h3>#6279B8</h3>
+        <img class="unsaved" src="./images/unlocked.svg" alt="Locked lock">
+      </div>
+      <div class="palette color_3">
+        <h3>#49516F</h3>
+        <img class="unsaved" src="./images/unlocked.svg" alt="Locked lock">
+      </div>
+      <div class="palette color_4">
+        <h3>#2B3842</h3>
+        <img class="unsaved" src="./images/unlocked.svg" alt="Locked lock">
+      </div>
+      <div class="palette color_5">
+        <h3>#14242B</h3>
+        <img class="unsaved" src="./images/unlocked.svg" alt="Locked lock">
+      </div>
+    </section>
+    <section class="save-palette-user-cont">
+      <button class="generate-btn">Generate Palette</button>
+      <div class="save-palette-cont">
+        <form class="save-palette-form">
+          <select name="project-dir" id="project-dir">
+          </select>
+          <div id="floatContainer" class="float-container">
+            <label for="save-palette-input">Palette Name</label>
+            <input type="text" id="save-palette-input">
+          </div>
+        </form>
+        <button class="save-palette-btn">
+          Save Palette
+        </button>
+      </div>
+    </section>
+  </article>
+  <article class="save-projects-cont">
+    <form class="save-project-from">
+      <div id="floatContainer" class="float-container">
+        <label for="save-project-input">Create a new Project</label>
+        <input type="text" id="save-project-input">
+      </div>
+    </form>
+    <button class="save-project-btn">Save Project</button>
+    <p class="project-error-msg"></p>
+  </article>
+  <article class="view-projects-cont">
+    <h2>Projects</h2>
+    <section></section>
+  </article>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="./js/scripts.js"></script>
+</body>
+</html>
