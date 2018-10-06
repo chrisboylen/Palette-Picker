@@ -38,7 +38,7 @@ const saveProject = (event) => {
   $('#save-project-input').val('')
 
   if (projects.length) {
-    duplicateProject = projects.find(project => project.name === projectName)
+    duplicateProject = projects.find(project => project.name === projectName);
   };
 
   if (projectName.length && !duplicateProject) {
@@ -90,7 +90,7 @@ const savePalette = () => {
 
 const postPalette = async (palette) => {
   const url = '/api/v1/palettes';
-console.log(palette);
+
   try {
     const response = await fetch(url, {
       method: 'POST', 
@@ -101,15 +101,16 @@ console.log(palette);
     });
     const paletteId = await response.json();
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
-const populateProjectOptions = (projects) => {
+const populateProjectOptions = (projects, palettes) => {
   projects.forEach(project => {
     const { id, name } = project;
     $('#project-dir').append(`<option value='${id}'>${name}</option>`);
-  })
+    displayProjects(id, name, palettes);
+  });
 };
 
 const getPalettes = async () => {
@@ -124,21 +125,22 @@ const getPalettes = async () => {
   }
 };
 
-const getProjects = async () => {
+const getProjects = async (palettes) => {
   const url = 'api/v1/projects';
 
   try {
     const response = await fetch(url);
     projects = await response.json();
-    populateProjectOptions(projects);
+    populateProjectOptions(projects, palettes);
   } catch (error) {
     console.log(error.message);
   }
 };
 
 const getProjectsAndPalletes = async () => {
-  await getProjects();
   const palettes = await getPalettes();
+  await getProjects(palettes);
+};
 
 const displayProjects = (id, name, palettes) => {
   $('.projects-cont').append(`
@@ -150,6 +152,21 @@ const displayProjects = (id, name, palettes) => {
   displayPalettes(id, palettes)
 };
 
+const displayPalettes = (id, palettes) => {
+  palettes.forEach(palette => {
+    if (id === palette.project_id) {
+      $(`#${id}`).append(`
+        <h5>${palette.name}</h5>
+        <li class="list-color" style="background-color:${palette.color_1}" value="${palette.color_1}"></li>  
+        <li class="list-color" style="background-color:${palette.color_2}" value="${palette.color_2}"></li>  
+        <li class="list-color" style="background-color:${palette.color_3}" value="${palette.color_3}"></li>  
+        <li class="list-color" style="background-color:${palette.color_4}" value="${palette.color_4}"></li>  
+        <li class="list-color" style="background-color:${palette.color_5}" value="${palette.color_5}"></li> 
+        <button class="del-palette-btn">X</button> 
+      `)
+    }
+  })
+};
 
 $(window).on('load', getProjectsAndPalletes);
 $('.generate-btn').on('click', generateRandomPalette);
