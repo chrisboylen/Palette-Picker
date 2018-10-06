@@ -50,7 +50,7 @@ const saveProject = (event) => {
 };
 
 const postProject = async (project) => {
-    const url = '/api/v1/projects';
+  const url = '/api/v1/projects';
 
   try {
     const response = await fetch(url, {
@@ -66,18 +66,51 @@ const postProject = async (project) => {
   }
 };
 
-const savePalette = (event) => {
-  const paletteName = $('.save-palette-btn').val();
-  const projectId = $('#project-dir').val();
-}
+const savePalette = () => {
+  const paletteName = $('#save-palette-input').val();
+  const projectId = parseInt($('#project-dir').val());
+  $('.save-palette-btn').val('');
+  const colors = getColors();
+  const newPalette = {
+    name: paletteName,
+    color_1: colors[0],
+    color_2: colors[1],
+    color_3: colors[2],
+    color_4: colors[3],
+    color_5: colors[4],
+    project_id: projectId
+  }
+  if (paletteName && projectId) {
+    postPalette(newPalette);
+    $('.palette-error-msg').text('');
+  } else {
+    $('.palette-error-msg').text('Select a project.')
+  }
+};
+
+const postPalette = async (palette) => {
+  const url = '/api/v1/palettes';
+console.log(palette);
+  try {
+    const response = await fetch(url, {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(palette) 
+    });
+    const paletteId = await response.json();
+  } catch (error) {
+    console.log(error)
+  }
+};
 
 const populateProjectOptions = (projects) => {
   projects.forEach(project => {
     const { id, name } = project;
     $('#project-dir').append(`<option value='${id}'>${name}</option>`);
   })
-
-}
+};
 
 const getPalettes = async () => {
   const url = '/api/v1/palettes';
@@ -113,3 +146,4 @@ $(window).on('load', getProjectsAndPalletes);
 $('.generate-btn').on('click', generateRandomPalette);
 $('.unsaved').on('click', toggleLockColor);
 $('.save-project-btn').on('click', saveProject);
+$('.save-palette-btn').on('click', savePalette);
