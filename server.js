@@ -64,7 +64,7 @@ app.post('/api/v1/palettes', (request, response) => {
     if (!palette[requiredParameter]) {
       return response 
         .status(422)
-        .send({ error: `Expected fromat: { name: <String>, color_1: <String>, color_2: <String>, color_3: <String>, color_4: <String>, color_5: <String>, project_id: <Number> }. You're missing a '${requiredParameter}' property.` });
+        .send({ error: `Expected format: { name: <String>, color_1: <String>, color_2: <String>, color_3: <String>, color_4: <String>, color_5: <String>, project_id: <Number> }. You're missing a '${requiredParameter}' property.` });
     }
   }
 
