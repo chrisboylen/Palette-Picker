@@ -1,3 +1,5 @@
+let projects = [];
+
 const generateRandomPalette = () => {
   const randomColor = () => "#" + (Math.random().toString(16) + "000000").slice(2, 8).toLocaleUpperCase();
   
@@ -89,7 +91,7 @@ const getProjects = async () => {
 
   try {
     const response = await fetch(url);
-    const projects = await response.json();
+    projects = await response.json();
     populateProjectOptions(projects);
   } catch (error) {
     console.log(error.message);
@@ -97,7 +99,7 @@ const getProjects = async () => {
 };
 
 const getProjectsAndPalletes = async () => {
-  const projects = await getProjects();
+  await getProjects();
   const palettes = await getPalettes();
 };
 
