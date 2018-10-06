@@ -139,6 +139,15 @@ const getProjects = async () => {
 const getProjectsAndPalletes = async () => {
   await getProjects();
   const palettes = await getPalettes();
+
+const displayProjects = (id, name, palettes) => {
+  $('.projects-cont').append(`
+    <div class="project">
+      <h4>${name}<h4>
+      <ul id="${id}"></ul>
+    </div>
+  `)
+  displayPalettes(id, palettes)
 };
 
 
