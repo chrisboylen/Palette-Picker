@@ -30,20 +30,24 @@ function getColors() {
   return colors;
 };
 
+const saveProject = (event) => {
   event.preventDefault();
   const projectName = $('#save-project-input').val();
-  const projects = await getProjects();
   const newProject = { name: projectName };
-  const duplicateProject = projects.find(project => project.name === projectName);
-
+  let duplicateProject;
   $('#save-project-input').val('')
+
+  if (projects.length) {
+    duplicateProject = projects.find(project => project.name === projectName)
+  };
 
   if (projectName.length && !duplicateProject) {
     postProject(newProject);
+    $('.project-error-msg').text('')
   } else {
     $('.project-error-msg').text(`${projectName} already exists, create a new project name.`);
   }
-}
+};
 
 const postProject = async (project) => {
   try {
