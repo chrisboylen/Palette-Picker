@@ -19,7 +19,15 @@ function toggleLockColor() {
   $(this).attr('src', $(this).hasClass('saved') ? locked : unlocked);
 };
 
-const saveProject = async (event) => {
+function getColors() {
+  let colors = [];
+
+  $('h3').each(function() {
+    colors.push($(this).text())
+  });
+  return colors;
+};
+
   event.preventDefault();
   const projectName = $('#save-project-input').val();
   const projects = await getProjects();
