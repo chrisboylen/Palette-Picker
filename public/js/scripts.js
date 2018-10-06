@@ -50,8 +50,9 @@ const saveProject = (event) => {
 };
 
 const postProject = async (project) => {
-  try {
     const url = '/api/v1/projects';
+
+  try {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
