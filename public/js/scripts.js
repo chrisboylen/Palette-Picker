@@ -1,3 +1,5 @@
+let projects = [];
+
 const generateRandomPalette = () => {
   const randomColor = () => "#" + (Math.random().toString(16) + "000000").slice(2, 8).toLocaleUpperCase();
   
@@ -19,25 +21,38 @@ function toggleLockColor() {
   $(this).attr('src', $(this).hasClass('saved') ? locked : unlocked);
 };
 
-const saveProject = async (event) => {
+function getColors() {
+  let colors = [];
+
+  $('h3').each(function() {
+    colors.push($(this).text())
+  });
+  return colors;
+};
+
+const saveProject = (event) => {
   event.preventDefault();
   const projectName = $('#save-project-input').val();
-  const projects = await getProjects();
   const newProject = { name: projectName };
-  const duplicateProject = projects.find(project => project.name === projectName);
-
+  let duplicateProject;
   $('#save-project-input').val('')
+
+  if (projects.length) {
+    duplicateProject = projects.find(project => project.name === projectName)
+  };
 
   if (projectName.length && !duplicateProject) {
     postProject(newProject);
+    $('.project-error-msg').text('')
   } else {
     $('.project-error-msg').text(`${projectName} already exists, create a new project name.`);
   }
-}
+};
 
 const postProject = async (project) => {
+  const url = '/api/v1/projects';
+
   try {
-    const url = '/api/v1/projects';
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -51,18 +66,51 @@ const postProject = async (project) => {
   }
 };
 
-const savePalette = (event) => {
-  const paletteName = $('.save-palette-btn').val();
-  const projectId = $('#project-dir').val();
-}
+const savePalette = () => {
+  const paletteName = $('#save-palette-input').val();
+  const projectId = parseInt($('#project-dir').val());
+  $('.save-palette-btn').val('');
+  const colors = getColors();
+  const newPalette = {
+    name: paletteName,
+    color_1: colors[0],
+    color_2: colors[1],
+    color_3: colors[2],
+    color_4: colors[3],
+    color_5: colors[4],
+    project_id: projectId
+  }
+  if (paletteName && projectId) {
+    postPalette(newPalette);
+    $('.palette-error-msg').text('');
+  } else {
+    $('.palette-error-msg').text('Select a project.')
+  }
+};
+
+const postPalette = async (palette) => {
+  const url = '/api/v1/palettes';
+console.log(palette);
+  try {
+    const response = await fetch(url, {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(palette) 
+    });
+    const paletteId = await response.json();
+  } catch (error) {
+    console.log(error)
+  }
+};
 
 const populateProjectOptions = (projects) => {
   projects.forEach(project => {
     const { id, name } = project;
     $('#project-dir').append(`<option value='${id}'>${name}</option>`);
   })
-
-}
+};
 
 const getPalettes = async () => {
   const url = '/api/v1/palettes';
@@ -81,7 +129,7 @@ const getProjects = async () => {
 
   try {
     const response = await fetch(url);
-    const projects = await response.json();
+    projects = await response.json();
     populateProjectOptions(projects);
   } catch (error) {
     console.log(error.message);
@@ -89,7 +137,7 @@ const getProjects = async () => {
 };
 
 const getProjectsAndPalletes = async () => {
-  const projects = await getProjects();
+  await getProjects();
   const palettes = await getPalettes();
 };
 
@@ -98,3 +146,4 @@ $(window).on('load', getProjectsAndPalletes);
 $('.generate-btn').on('click', generateRandomPalette);
 $('.unsaved').on('click', toggleLockColor);
 $('.save-project-btn').on('click', saveProject);
+$('.save-palette-btn').on('click', savePalette);
