@@ -165,8 +165,23 @@ const displayPalettes = (id, palettes) => {
         <button class="del-palette-btn">X</button> 
       `)
     }
+
+const deletePalette = (event) => {
+  const id = $(event.target).closest('.display-palette-cont').attr('id');
+  const url = `/api/v1/palettes/${id}`;
+
+  try {
+    fetch(url, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
   })
-};
+  } catch (error) {
+    console.log(error);
+  }
+
+  $(event.target).closest('.display-palette-cont').remove();
+}
 
 $(window).on('load', getProjectsAndPalletes);
 $('.generate-btn').on('click', generateRandomPalette);
