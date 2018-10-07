@@ -165,12 +165,14 @@ const displayPalette = (id, palette) => {
   if (id === palette.project_id) {
     $(`#${id}`).append(`
       <div class="display-palette-cont" id="${palette.id}">
-        <h5>${palette.name}</h5>
-        <div class="list-color" "style="background-color:${palette.color_1}" value="${palette.color_1}></div>  
-        <div class="list-color" style="background-color:${palette.color_2}" value="${palette.color_2}"></div>  
-        <div class="list-color" style="background-color:${palette.color_3}" value="${palette.color_3}"></div>  
-        <div class="list-color" style="background-color:${palette.color_4}" value="${palette.color_4}"></div>  
-        <div class="list-color" style="background-color:${palette.color_5}" value="${palette.color_5}"></div> 
+        <div class="palette-select-wrapper">
+          <h5>${palette.name}</h5>
+          <div class="list-color" style="background-color:${palette.color_1}" value="${palette.color_1}"></div>  
+          <div class="list-color" style="background-color:${palette.color_2}" value="${palette.color_2}"></div>  
+          <div class="list-color" style="background-color:${palette.color_3}" value="${palette.color_3}"></div>  
+          <div class="list-color" style="background-color:${palette.color_4}" value="${palette.color_4}"></div>  
+          <div class="list-color" style="background-color:${palette.color_5}" value="${palette.color_5}"></div> 
+        </div>
         <img class="del-image" src="../images/delete.svg">
       </div>
     `)
@@ -192,7 +194,21 @@ const deletePalette = (event) => {
   }
 
   $(event.target).closest('.display-palette-cont').remove();
-}
+};
+
+function displaySavedPalette() {
+  let colors = []
+  $(this).children('.list-color').each(function(){
+    colors.push($(this).attr('value'))
+  });
+
+  for (let i = 0; i < 5; i++) {
+    $(`.color_${i + 1}`).children('img').removeClass('saved');
+    $(`.color_${i + 1}`).children('img').attr('src', './images/unlocked.svg');
+    $(`.color_${i + 1}`).css('background-color', colors[`${i}`]);
+    $(`.color_${i + 1}`).children('h3').text(colors[`${i}`]);
+  }
+};
 
 $(window).on('load', getProjectsAndPalletes);
 $('.generate-btn').on('click', generateRandomPalette);
@@ -200,3 +216,4 @@ $('.unsaved').on('click', toggleLockColor);
 $('.save-project-btn').on('click', saveProject);
 $('.save-palette-btn').on('click', savePalette);
 $('.projects-cont').on('click', '.del-image', deletePalette);
+$('.projects-cont').on('click', '.palette-select-wrapper', displaySavedPalette);
