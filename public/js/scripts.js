@@ -91,6 +91,9 @@ const savePalette = () => {
   } else {
     $('.palette-error-msg').text('Select a project.')
   }
+  for (let i = 0; i < 5; i++) {
+    resetLock(i);
+  }
 };
 
 const postPalette = async (projectId, palette) => {
@@ -203,12 +206,16 @@ function displaySavedPalette() {
   });
 
   for (let i = 0; i < 5; i++) {
-    $(`.color_${i + 1}`).children('img').removeClass('saved');
-    $(`.color_${i + 1}`).children('img').attr('src', './images/unlocked.svg');
+    resetLock(i);
     $(`.color_${i + 1}`).css('background-color', colors[`${i}`]);
     $(`.color_${i + 1}`).children('h3').text(colors[`${i}`]);
   }
 };
+
+function resetLock(i) {
+  $(`.color_${i + 1}`).children('img').removeClass('saved');
+  $(`.color_${i + 1}`).children('img').attr('src', './images/unlocked.svg');
+}
 
 $(window).on('load', getProjectsAndPalletes);
 $('.generate-btn').on('click', generateRandomPalette);
